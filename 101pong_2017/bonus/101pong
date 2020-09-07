@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+
+from math import *
+import sys
+
+PI = 3.141592654
+x0 = float(sys.argv[1])
+y0 = float(sys.argv[2])
+z0 = float(sys.argv[3])
+x1 = float(sys.argv[4])
+y1 = float(sys.argv[5])
+z1 = float(sys.argv[6])
+n = int(sys.argv[7])
+xN = ((x1-x0) * (n+1) + x0)
+yN = ((y1-y0) * (n+1) + y0)
+zN = ((z1-z0) * (n+1) + z0)
+i = 0
+
+point0 = [x0, y0, z0]
+point1 = [x1, y1, z1]
+
+def calc_vector(point0, point1):
+    vector = []
+    i = 0
+    while i < 3:
+        vector.append(point1[i] - point0[i])
+        i+=1
+    return (vector)
+
+print("The speed vector coordinates are :");
+print("({:.2f};{:.2f};{:.2f})".format(*calc_vector(point0, point1)))
+
+def calc_scalaire(vector0, vector1):
+    scal = 0
+    i = 0
+    while i < 3:
+        scal += vector0[i] * vector1[i]
+        i += 1
+    return (scal)
+
+def calc_norme(vector):
+    norme = sqrt(vector[0]*vector[0]+vector[1]*vector[1]+vector[2]*vector[2])
+    return (norme)
+
+def calc_angle(norme, point0, point1):
+    return (90 - degrees(acos(-(point1[2] - point0[2]) / norme)))
+
+vector0 = calc_vector(point0, point1)
+scal = calc_scalaire(point0, point1)
+norm_vec = calc_norme(vector0)
+angle = calc_angle(norm_vec, point0, point1)
+
+print("At time t+{}, ball coordinate will be :".format(n))
+print("({:.2f};{:.2f};{:.2f})".format(xN, yN, zN))
+
+if (z1 > 0 and zN <= 0) or (z1 < 0 and zN >= 0):
+    print("The incidence angle is :")
+    print("{:.2f} degrees".format(angle))
+else:
+    print("The ball won't reach the bat.")

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">components/Controller/api.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#controller">Controller</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/Controller/api.js~ImgurApi.html">ImgurApi</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/Controller/imageFeed.js~ImageFeed.html">ImageFeed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/Controller/menuButton.js~MenuButton.html">MenuButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Drawer">Drawer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Router">Router</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view-css">View/CSS</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-styles">styles</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view-modules">View/modules</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/modules/account.js~Account.html">Account</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/modules/imageBlock.js~ImageBlock.html">ImageBlock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/modules/videoBlock.js~VideoBlock.html">VideoBlock</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view-pages">View/pages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/pages/feed.js~FeedScreen.html">FeedScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/pages/home.js~HomeScreen.html">HomeScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/pages/search.js~SearchScreen.html">SearchScreen</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">components/Controller/api.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/*
+ * Imgur API implementation
+ *
+ *
+ * @format
+ * @flow
+ */
+
+import React from &apos;react&apos;;
+import { Button, View, ScrollView } from &apos;react-native&apos;;
+
+import { authorize } from &apos;react-native-app-auth&apos;;
+import AsyncStorage from &apos;@react-native-community/async-storage&apos;;
+import Account from &apos;../View/modules/account&apos;;
+import styles from &apos;../View/CSS/style&apos;;
+import ImageFeed from &apos;./imageFeed&apos;
+
+/**
+ * Imgur APi class
+ * @class ImgurApi
+ * @description Component that contain all the necessary code to call the imgur api and do request with it
+ */
+export default class ImgurApi extends React.Component {
+
+  //Connect user to Imgur API
+  constructor() {
+    super();
+    this.state = {
+      userData: [],
+      userDataView: &lt;View&gt;
+                      &lt;Button style={styles.loginButton} title=&apos;login to imgur&apos; onPress={this.connectUser}/&gt;
+                    &lt;/View&gt;,
+    }
+    this.connectUser = this.connectUser.bind(this);
+    this.removeCredentials = this.removeCredentials.bind(this);
+    this.loadAccountData = this.loadAccountData.bind(this);
+    this.fetchData = this.fetchData.bind(this);
+  }
+
+  fetchData = async (fetchUrl, apiKey) =&gt; {
+    await fetch(fetchUrl, {
+      method: &apos;GET&apos;,
+      headers: {
+          &apos;Authorization&apos;: &apos;Client-ID &apos; + apiKey,
+      },
+      }).then(response =&gt; response.json())
+      .then(data =&gt; {
+          this.setState({ userData: data.data })
+        }).catch(error =&gt; { console.log(&quot;error in fetch : &quot; + error) })
+  }
+
+  loadAccountData = async (userName, userToken) =&gt; {
+    await this.fetchData(&quot;https://api.imgur.com/3/account/&quot; + userName, &apos;a40ee52b57a7011&apos;)
+    this.setState({userDataView:
+      &lt;View&gt;
+        &lt;ScrollView style={{flexDirection: &apos;column&apos;}}&gt;
+          &lt;View&gt;
+            &lt;Account profilPic={this.state.userData.avatar}
+                  userName={userName} 
+                  bio={this.state.userData.bio} /&gt;
+          &lt;/View&gt;
+          &lt;View&gt;
+            &lt;Button style={styles.loginButton} title=&apos;log out&apos; onPress={this.removeCredentials}/&gt;
+          &lt;/View&gt;
+          &lt;ImageFeed access=&apos;Bearer&apos; fetchUrl=&apos;https://api.imgur.com/3/account/me/images&apos; apiKey={ userToken }/&gt;
+        &lt;/ScrollView&gt;
+      &lt;/View&gt;
+  })
+  }
+
+  connectUser = async () =&gt; {
+    const config = {
+      serviceConfiguration: {
+        authorizationEndpoint: &apos;https://api.imgur.com/oauth2/authorize&apos;,
+        tokenEndpoint: &apos;https://api.imgur.com/oauth2/token&apos;,
+      },
+      clientId: &apos;a40ee52b57a7011&apos;,
+      clientSecret: &apos;fba6b6b7e7ef622a38633a3dcba02a3cb5f4b89c&apos;,
+      redirectUrl: &apos;epicture://auth&apos;,
+    };
+
+    try {
+      const token = await authorize(config)
+
+      await AsyncStorage.setItem(&apos;token&apos;, token.accessToken)
+      console.disableYellowBox = true;
+      this.loadAccountData(token.additionalParameters.account_username, token.accessToken);
+    } catch (e) {
+      console.log(&quot;error in connect user : &quot; + e);
+    }
+  }
+
+  async removeCredentials() {
+    try {
+      await AsyncStorage.removeItem(&apos;token&apos;)
+      this.setState({userDataView:
+        &lt;View&gt;
+          &lt;Button style={styles.loginButton} title=&apos;login to imgur&apos; onPress={this.connectUser}/&gt;
+        &lt;/View&gt;
+      })
+    } catch (e) {
+      console.log(&quot;error in log out : &quot; + e);
+    }
+  }
+
+  render() {
+    return (
+      &lt;View&gt;
+        { this.state.userDataView }
+      &lt;/View&gt;
+    );
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

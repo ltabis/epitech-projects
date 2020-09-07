@@ -1,0 +1,58 @@
+/*
+** EPITECH PROJECT, 2019
+** SickKoala.cpp
+** File description:
+** main file
+*/
+
+#include "KoalaNurse.hpp"
+
+KoalaNurse::KoalaNurse(int id) : _id(id), _isWorking(false) {}
+
+KoalaNurse::~KoalaNurse()
+{
+    std::cout << "Nurse " << this->_id <<
+    ": Finally some rest!" << std::endl;
+}
+
+void KoalaNurse::giveDrug(std::string Drug, SickKoala *koala)
+{
+    koala->takeDrug(Drug);
+}
+
+std::string KoalaNurse::readReport(std::string filename)
+{
+    std::string str;
+    std::ifstream myfile;
+    std::string::size_type pos = 0;
+
+    pos = filename.find(".report");
+    if (pos == std::string::npos)
+        return (str);
+    myfile.open(filename);
+    if (!(myfile.is_open()))
+        return (str);
+    std::getline(myfile, str);
+    std::cout << "Nurse " << this->_id <<
+    ": Kreog! Mr."<< filename.substr(0, pos) <<
+    " needs a " << str << "!" << std::endl;
+    return (str);
+}
+
+void KoalaNurse::timeCheck()
+{
+    if (this->_isWorking == false) {
+        this->_isWorking = true;
+        std::cout << "Nurse " << this->_id <<
+        ": Time to get to work!" << std::endl;
+    } else {
+        this->_isWorking = false;
+        std::cout << "Nurse " << this->_id <<
+        ": Time to go home to my eucalyptus forest!" << std::endl;
+    }
+}
+
+int KoalaNurse::getID()
+{
+    return (this->_id);
+}

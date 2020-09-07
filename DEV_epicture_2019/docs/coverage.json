@@ -1,0 +1,132 @@
+{
+  "coverage": "2.08%",
+  "expectCount": 48,
+  "actualCount": 1,
+  "files": {
+    "components/Controller/api.js": {
+      "expectCount": 8,
+      "actualCount": 1,
+      "undocumentLines": [
+        26,
+        28,
+        34,
+        36,
+        37,
+        93,
+        106
+      ]
+    },
+    "components/Controller/drawer.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        16,
+        19,
+        25,
+        33
+      ]
+    },
+    "components/Controller/imageFeed.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        17,
+        19,
+        25,
+        26,
+        64,
+        71,
+        75
+      ]
+    },
+    "components/Controller/menuButton.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        17
+      ]
+    },
+    "components/Controller/router.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        16,
+        25
+      ]
+    },
+    "components/View/CSS/style.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "components/View/modules/account.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        17,
+        19,
+        26
+      ]
+    },
+    "components/View/modules/imageBlock.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        17,
+        19,
+        26
+      ]
+    },
+    "components/View/modules/videoBlock.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        15,
+        18,
+        20,
+        28
+      ]
+    },
+    "components/View/pages/feed.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        15,
+        18
+      ]
+    },
+    "components/View/pages/home.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        17
+      ]
+    },
+    "components/View/pages/search.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        17,
+        19,
+        26,
+        32
+      ]
+    },
+    "components/View/pages/upload.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        10,
+        13
+      ]
+    }
+  }
+}

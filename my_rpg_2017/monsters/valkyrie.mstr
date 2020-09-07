@@ -1,0 +1,11 @@
+valkyrie {
+	current_hp 200
+	current_sp 200
+	current_st 4
+	max_hp 200
+	max_sp 200
+	max_st 4
+	att 50
+	def 20
+	spd 3
+} sprites/valkyrie.png

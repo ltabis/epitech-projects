@@ -1,0 +1,11 @@
+NONE
+1
+10
+
+MERCHAND
+2
+11
+
+QUESTER
+3
+12

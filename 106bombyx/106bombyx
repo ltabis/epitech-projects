@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+from sys import *
+from calcul_with_bornes import *
+
+args = [] # LISTE QUI CONTIENT LES ARGUMENTS SANS LE BINAIRE
+
+def try_nbr(arg): # GESTION D'ERREUR, PAS BESOIN DE TOUCHER                                      
+    try:
+        float(arg)
+        return True
+    except ValueError:
+        exit(84)
+
+
+def main():
+    i = 1
+    args = []
+ 
+    if len(argv) > 4 or len(argv) < 2:
+    	exit(84)
+    if len(argv) == 2 and len(argv[1]) != 2:
+    	exit(84)
+    elif argv[1][0] == '-' and argv[1][1] == 'h':
+    	display_usage();
+    	exit(0)
+    while i < len(argv):
+        try_nbr(argv[i])
+        arg = float(argv[i])
+        args.append(arg);
+        i += 1;
+    return(args)
+ 
+def display_usage():
+	print("""USAGE
+	./106bombyx n [k | i0 i1]\n
+DESCRIPTION
+	n    number of first generation individuals
+	k    growth rate from 1 to 4
+	i0   initial generation (included)
+	i1   final generation (included)""");
+
+
+def calcul_without_bornes(n, k):
+	count = 3
+	result = n * k *((1000 - n) / 1000)
+	print(str(1) + ' {0:.2f}'.format(n))
+	print(str(2) + ' {0:.2f}'.format(result))
+	while count < 101:
+		result = result * k *((1000 - result) / 1000)
+		print(str(count) + ' {0:.2f}'.format(result))
+		count += 1
+		
+
+args = main();
+
+if len(args) == 3:
+	calcul_with_bornes(float(args[0]), float(args[1]), float(args[2]));
+else:
+	calcul_without_bornes(float(args[0]), float(args[1]));

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="../static/css/s.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<title>Epytodo 2017</title>
+<style>
+	.stick-to-right {
+		width: 250px;
+		float: right;
+	}
+</style>
+<body>
+    <h1 type="title">Profile informations</h1>
+    <h1 class="stick-to-right"><span id="time" /></h1>
+    <h1 class="Title" type="title">
+        {{ user }}
+    </h1>
+    <form action="http://127.0.0.1:5000/signin" method = "POST">
+        <input type="submit" value="back to menu">
+    </form>
+    <form action="http://127.0.0.1:5000/user/task" method = "GET">
+        <input type="submit" value="my tasks">
+    </form>
+    <ul class="Navigation">
+        <li class="Navigation"><a href="http://127.0.0.1:5000/signin" method="POST">Home</a></li>
+        <li class="Navigation"><a href="#news">News</a></li>
+        <li class="Navigation"><a href="#contact">Contact</a></li>
+        <form action="http://127.0.0.1:5000/about" method = "GET">
+            <li class="Navigation" style="float:right"><a href="http://127.0.0.1:5000/about">About</a><li>
+        </form>
+    </ul>
+    <h1 type="title">Profile of {{ user }}</h1>
+    <h2 type="title">Username : {{ user }}</h2>
+    <h2 type="title">User ID : {{ user_ID }}</h2>
+    <h2 type="title">todo : {{ todo_list }}</h2>
+	<address>
+		Written by  <a href="mailto:lucas.tabis@epitech.eu">Lucas TABIS</a><br>
+		and <a href="mailto:paul.brunner@epitech.eu">Paul BRUNNER</a><br> and
+		<a href="mailto:lucas.hemmerle@epitech.eu">Lucas HEMMERLÉ</a><br>
+		Students from <a href="http://www.epitech.eu/">EPITECH </a>
+	</address>
+    <h3 id="map" style="width:400px;height:600px;"></h3>
+	<script type="text/javascript">
+    <!--
+    function updateTime() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+        if (minutes < 10){
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10){
+            seconds = "0" + seconds;
+        }
+        var v = hours + ":" + minutes + ":" + seconds + " ";
+        if(hours > 11){
+            v+="PM";
+        } else {
+            v+="AM"
+        }
+        setTimeout("updateTime()",1000);
+        document.getElementById('time').innerHTML=v;
+    }
+    updateTime();
+    //-->
+</body>
+</html>

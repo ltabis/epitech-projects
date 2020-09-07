@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">components/View/CSS/style.js</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#controller">Controller</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/Controller/api.js~ImgurApi.html">ImgurApi</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/Controller/imageFeed.js~ImageFeed.html">ImageFeed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/Controller/menuButton.js~MenuButton.html">MenuButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Drawer">Drawer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Router">Router</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view-css">View/CSS</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-styles">styles</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view-modules">View/modules</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/modules/account.js~Account.html">Account</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/modules/imageBlock.js~ImageBlock.html">ImageBlock</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/modules/videoBlock.js~VideoBlock.html">VideoBlock</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#view-pages">View/pages</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/pages/feed.js~FeedScreen.html">FeedScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/pages/home.js~HomeScreen.html">HomeScreen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/components/View/pages/search.js~SearchScreen.html">SearchScreen</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">components/View/CSS/style.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { StyleSheet } from &apos;react-native&apos;;
+
+const styles = StyleSheet.create({
+
+  centerStyle: {
+    flex : 1,
+    alignItems: &apos;center&apos;,
+    justifyContent: &apos;center&apos;,
+  },
+
+  //Style of the profile picture in profile page
+  profilPic: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: &apos;#ffbb33&apos;,
+  },
+
+  //Style of the profile window
+  profileView : {
+    flex: 1,
+    flexDirection: &apos;row&apos;,
+    justifyContent: &apos;center&apos;,
+  },
+
+  //Style of the login button in profile page
+  loginButton: {
+   marginTop: 30,
+   backgroundColor: &apos;#ffbb33&apos;,
+  },
+
+  //Style of the username in profile page
+  username: {
+    fontWeight: &apos;bold&apos;,
+    fontSize: 45,
+    marginTop: 20,
+    marginBottom: 20,
+    color: &quot;#000000&quot;,
+  },
+
+  //Style of the user informations title
+  facts: {
+    fontSize: 19,
+    fontWeight: &apos;bold&apos;,
+    marginBottom: 20,
+    color: &apos;#000000&apos;,
+  },
+
+  //Style of the user informations response
+  factsResponse: {
+    fontSize: 15,
+    marginLeft: 10,
+    color: &apos;#000000&apos;,
+  },
+
+  //Style of informations background
+  factsBackground: {
+    backgroundColor: &apos;#DCDCDC&apos;,
+  },
+
+  //Style of image window in feed
+  imageView: {
+    justifyContent: &apos;center&apos;,
+    alignItems: &apos;center&apos;,
+    width: 391.5,
+    height: 350,
+    marginRight: &apos;0.5%&apos;,
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: &apos;#ffbb33&apos;,
+  },
+
+  //Style of the image title in feed
+  imageTitle: {
+    textAlign: &apos;center&apos;,
+    fontSize: 20,
+    backgroundColor: &apos;#ffbb33&apos;,
+    textShadowColor: &apos;rgba(0, 0, 0, 0.75)&apos;,
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+  },
+
+  //Style of box in feed
+  boxView: {
+    flex: 1,
+    backgroundColor: &apos;#ffbb33&apos;,
+    margin: 10,
+    borderRadius: 10,
+  },
+
+  //Style of the menu icon
+  menuIcon: {
+    zIndex: 9,
+    top: 20,
+    left: 20,
+    width: 40,
+    height: 40,
+  },
+
+  //Style of the feed background
+  feed: {
+    backgroundColor: &apos;#293133&apos;
+  },
+
+  //Style of footer icon on image in Feed
+  footerIcon: {
+    width: 30,
+    height: 30,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+})
+
+export default styles
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

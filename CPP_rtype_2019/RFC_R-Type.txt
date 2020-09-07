@@ -1,0 +1,470 @@
+
+
+
+
+
+
+R-Type working Group                                          Matteo V.
+Category: Informational                                        Lucas T.
+Fack                                                          Arthur L.
+November 2019                                                 Paulin F.
+
+
+                    Instruction to R-Type Developper
+
+Copyright Notice
+
+        Copyleft (C) R-Compris Working Group. All Right left.
+
+Table of Contents
+
+    1.  Introduction . . . . . . . . . . . . . . . . . . 2
+    2.  Network Protocol . . . . . . . . . . . . . . . . 2
+    2a. Client network codes . . . . . . . . . . . . . . 3
+    2b. Server network codes . . . . . . . . . . . . . . 4
+    3.  Client gameloop  . . . . . . . . . . . . . . . . 5
+    3a. Client event sending . . . . . . . . . . . . . . 5
+    4.  Server gameloop  . . . . . . . . . . . . . . . . 6
+    4a. Server Entity sending  . . . . . . . . . . . . . 6
+    5.  Configuration file . . . . . . . . . . . . . . . 7
+    6.  Server prompt  . . . . . . . . . . . . . . . . . 7
+    7.  Authors' details . . . . . . . . . . . . . . . . 8
+    8.  Full Copyright Statement . . . . . . . . . . . . 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Informational                                                  [Page 1]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+1.   Introduction
+
+    This present document is written to help people of the
+    R-Type Working Group to find all the information they need
+    to code freely.
+
+    You are strongly advised to read this document before coding.
+
+    Any code author cannot blame this RFC of the RFC author in
+    any case, either for complaining about bad explanations of
+    protocols or about non-functionnal code.
+
+
+2.   Network Protocol
+
+    Network Protocol was carefully designed by brilliant students
+    who cared deeply about making a good project.
+
+    First, you need to know that the client and the server must
+    produce an output and send data to each other every 16
+    milliseconds, wich means they both run at 60 frames per
+    seconds.
+
+    Every information that will be sent during the game will be
+    send over UDP network. On both client and server side, a
+    variable of type `void *` is REQUIRED to be passed as
+    argument to the corresponding `send` method.
+
+    So you SHOULD create a structure where you will store the
+    communication code and a void pointer to your data. This void
+    pointer can also be a structure, or a string, or an array of
+    int or whatever you need to send.
+
+    The structure SHOULD looks like this:
+
+    struct UdpData {
+        int code;
+        void *data
+    };
+
+    The communication code MUST be placed at first position in the
+    structure.
+
+    The following list of communication code lists all available
+    codes in the program, for both UDP and TCP communication
+
+
+
+
+
+
+Informational                                                  [Page 2]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+    2a. Client network codes
+
+        Here's all codes used by any client when trying to
+        communicate with the server.
+
+        These protocols codes MUST be used only for their main
+        purpose. The server implementation require specifics codes
+        to communicate properly, I reapeat, you MUST NOT use these
+        protocols codes for any other purpose.
+
+        Here are the codes:
+
+        201: Client ask for a hub to the server. (TCP)
+
+        - Optional data:
+        You MAY give optional information in the data field of the
+        UDP structure.
+
+        If you choose to provide an additional data you MUST send
+        the hub where you want to be integrated. If the hub you
+        mentionned doesn't exist yet, the server will know create
+        a new hub with this name. In contrary, if the hub already
+        exists, the client will be transfered to that hub.
+
+        202: Client warn the server that he is ready to launch
+        a game. (TCP)
+
+        203: Client warn the server that he is not ready to
+        launch a game. (TCP)
+
+        204: Client ask the server what ressource it will need
+        to run properly, get a response from Server. If any
+        ressource is missing, Server will automatically download
+        ressources to Client. (TCP)
+
+        You SHOULD probably worry more about other codes and
+        implement this one only when you have a good R-Type.
+
+        205: Client tick and send a packet with all his inputs
+        with an associated boolean to Server.
+
+        Your MAY use an int and use bitwise operators to store
+        informations about pressed inputs and decipher with
+        an enum on server side.
+
+        42 => 00101010
+
+        enum inputs {up = 1, down = 2, left = 4, right = 8 ...}
+
+
+
+Informational                                                  [Page 3]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+        206: Client require events it will need to use to the
+        server. (TCP)
+
+        301: Client send a debug message to server. This message
+        SHOULD be printed on server's console (TCP/UDP)
+
+        302: Client error. Send an error message to the server.
+        The message SHOULD be printed on server's console. (TCP/UDP)
+
+    2b. Server network codes
+
+        401: Player in Hub. Server tell that the client who asked
+        for a hub is in a hub.
+
+        Server also send the hub number in which the client has
+        been placed. (TCP)
+
+        402: Server tick and send to Client all drawable objects.
+        Client MUST draw all objects as the server tell it.
+        (UDP)
+
+        403: Server send to all clients in a specific hub that a
+        new player just arrived in the specific hub. (TCP)
+
+        404: New enemy information. When server reload enemies
+        and found a new enemy library (.so/.dll) it will send
+        an update to Client to warn it than a completely new
+        enemy is coming. Server will need to send the sprite of
+        the enemy (dunno how for now). (TCP ?)
+
+        405: Server send to all client in a hub that the game
+        will start in a few seconds. Next Packet Client will
+        receive will probably be 402. (TCP)
+
+        406: Server send an id and a string corresponding to an
+        event that can be processed by the client. (TCP)
+
+        407: End of events. Server has send all events that
+        the client need to handle during the game. (TCP)
+
+        501: Server send a debug message to client. This message
+        SHOULD be printed on client's console. (TCP/UDP)
+
+        502: Server error. Send an error message to the client.
+        The message SHOULD be printed on client's console. (TCP/UDP)
+
+        If someone ever read this, please come to me and tell me
+        my middle name, which is 'Stephane'.
+
+
+
+Informational                                                  [Page 4]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+3.  Client Gameloop
+
+    Client's gameloop look like this:
+
+    while (true) {
+        read_network()
+        read_events()
+        send_events()
+        update_positions()
+        render_world()
+    }
+
+    - read_network(): receive udp packets from server and process it
+
+    - read_events(): reads keyboard/joysticks/mouse events and stores
+        them, waiting to be send.
+        Events MUST be stored as a map of keys and their
+        corresponding state (true or false).
+
+    - send_events(): send events to the server
+
+    - update_positions(): use data processed in read_network() and
+        update position of all entites in the game
+
+    - render_world(): render all newly updated entities on screen
+
+    3a. Client event sending
+
+        Client will send events in a special UDP structure, here
+        is an example of what the client event can look like
+
+        struct UDP {
+            int code;
+            int hubNbr;
+            char data[UDP_BUF_SIZE];
+        }
+
+        Here 'data' will be a std::size_t where each bit will be
+        either 0 or 1 and will be interpreted as an input
+
+        Server will receive the number and by doing some tricky
+        operations with bitwise operators it'll be easy to get which
+        key has been pressed by the dumb player playing your dumb
+        game.
+
+
+
+
+
+
+
+Informational                                                  [Page 5]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+4.  Server Gameloop
+
+    Here I'm talking about the gameloop inside a hub, which means
+    there are multiple loop like this one running at the same time
+    on server.
+
+    Server's gameloop look like this:
+
+    while (true) {
+        read_events()
+        send_entity()
+        event_to_scene()
+        clear_event_queue()
+    }
+
+    - read_events(): receive events from client by UDP socket.
+
+    - send_entity(): send all entity and their associated attributes
+    via UDP socket.
+
+    - event_to_scene(): transfer the queue of event to the current
+    scene. The scene will handle all events and update the game
+    according to them.
+
+    - clear_event_queue(): clear the queue event of the hub.
+    Hub have a queue of event coming from different client so
+    chen all events have been send to the current scene, hub
+    need to clear them from the queue
+
+    4a. Server Entity sending
+
+        Server MAY send entities one by one on UDP network to
+        each client. There is probably a better way to do it where
+        you use network less but, hey, shut up !
+
+        The entity structure to send data is made like that:
+
+        struct Entity {
+            unsigned lon long int id;
+            float x;
+            float y;
+            float z;
+            float top;
+            float left;
+            float width;
+            float height;
+            char deleted;
+            char texture[SOME_SIZE];
+        }
+
+
+Informational                                                  [Page 6]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+5.  Configuration file
+
+    To rule some part of the client/server, values are passed
+    in configuration files. You MUST uses these configuration
+    files at least to store server's ip and port on client side
+    and key mapping on server side.
+
+    These files looks like this:
+
+    server_ip:127.0.0.1
+    #server_ip:10.18.207.215
+    tcp_port:1234
+    udp_port:4321
+
+    A Configuration file parser/writer is shipped with the r-type.
+    You can comment lines in the file.
+
+    If you read this you are probably mad or got nothing else to do,
+    so basically I don't know if you should feel ashamed or proud of
+    you. But at least you will be able to produce an replica of
+    our r-type. GG !
+
+
+6.  Server prompt
+
+    When you launch the server (despite all log messages that will
+    be printed on screen) you can type commands in a small shell:
+
+    $> hubs
+
+    There are a few commands wich are:
+    - help: print help for all commands
+
+    - quit/shutdown: quit the server properly
+
+    - hubs: print informations about all actives hubs
+
+    - kick: kick a player from a game
+
+
+
+
+
+
+
+
+
+
+
+
+Informational                                                  [Page 7]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================
+RFC -42             Instruction to R-Type Developper      November 2019
+
+
+8.  Authors' details
+
+    All members of this project are students of Epitech school in
+    France. This project was part of an "Advanced C++" module.
+
+    Matteo Volpi:
+        matteo.volpi@epitech.eu
+
+    Lucas Tabis:
+        lucas.tabis@epitech.eu
+
+    Arthur Lang:
+        arthur.lang@epitech.eu
+
+    Paulin Flammang:
+        paulin.flammang@epitech.eu
+
+
+9.  Full Copyright Statement
+
+    Basically:
+    Do what you want 'cause a pirate is free, you are a pirate !
+
+    On a more serious note, this project is provided with no
+    warranty that you can compile it or made it works.
+
+    But you can try.
+
+    If you read until this point.
+
+
+
+    Please if someon really read all this file until this point
+    send me a mail and tell it to me.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Informational                                                  [Page 8]
+
+                Matteo V. Lucas T. Arthur L. Paulin F.
+
+=======================================================================

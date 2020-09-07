@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/css/about.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/about2.css">
+    <link rel="stylesheet" href="../static/css/about2.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/about.css">
+</head>
+<title>Epytodo 2017</title>
+<style>
+    .stick-to-right { /*PFOUA DEGEUUU*/
+        float: right;
+    }
+</style>
+<body>
+<ul class="Navigation">
+    <form action="http://127.0.0.1:5000/">
+        <li class="Navigation"><a href="/">Home</a></li>
+    </form>
+    <li class="Navigation"><a href="#news">News</a></li>
+    <form action="http://127.0.0.1:5000/agenda" method = "GET">
+        <li class="Navigation"><a href="agenda">Agenda</a></li>
+    </form>
+    <li class="Navigation"><a onclick="my_Function()" href ="">Useless One</a></li>
+    <li class="Navigation"><a href="http://www.amishrakefight.org/gfy/">Useless Two</a></li>
+    <form action="http://127.0.0.1:5000/about" method = "GET">
+        <li class="Navigation" style="float:right"><a href="about">About</a><li>
+    </form>
+</ul>
+<h4 class="Usr"> Username</h4>
+<h4 class="Pass"> Password</h4>
+<h2> <span id="time" />
+</h2>
+<h1 class="Title" type="title">
+    Epytodo 2017, an EPITECH Project
+</h1>
+<form action="http://127.0.0.1:5000/signin" method = "POST">
+    <p ><input type="text" id="fname" name="username" placeholder="Your user name ..."/></p>
+    <p> <input type="text" id="lname" name="password" placeholder="Your Password ..."/></p>
+    <p><input type="submit" value="log in"></p>
+    <form action="http://127.0.0.1:5000/signin">
+        <p><input type="submit" value="or register"></p>
+    </form>
+</form>
+<address class="Oui">
+    Written by  <a type="Oui" href="mailto:lucas.tabis@epitech.eu">Lucas TABIS</a><br>
+    and <a type="Oui" href="mailto:paul.brunner@epitech.eu">Paul BRUNNER</a><br> and
+    <a type="Oui" href="mailto:lucas.hemmerle@epitech.eu">Lucas HEMMERLÉ</a><br>
+    Students from <a type ="Oui" href="http://www.epitech.eu/">EPITECH </a>
+</address>
+<h3 id="map" style="width:400px;height:400px;"></h3>
+    <script type="text/javascript">
+        <!--
+        function updateTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+            if (minutes < 10){
+                minutes = "0" + minutes;
+            }
+            if (seconds < 10){
+                seconds = "0" + seconds;
+            }
+            var v = hours + ":" + minutes + ":" + seconds + " ";
+            if(hours > 11){
+                v+="PM";
+            } else {
+                v+="AM"
+            }
+            setTimeout("updateTime()",1000);
+            document.getElementById('time').innerHTML=v;
+        }
+        function myMap() {
+            var mapOptions = {
+                center: new google.maps.LatLng(48.692617, 6.188452),
+                zoom: 20,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            }
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        }
+        function my_Function() {
+            alert("Vous avez gagné un Kinder Pingui. Réclamations auprès de Lucas TABIS");
+        }
+        updateTime();
+        myMap();
+        //-->
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1AZOVnhBo25LlDnw0AUf8HgNI0K5fUEo&callback=myMap"></script>
+</body>
+</html>

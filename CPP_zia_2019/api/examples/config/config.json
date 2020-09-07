@@ -1,0 +1,27 @@
+{
+    "http": [{
+        "path": "./modules/",
+        "name": "HttpReceiver"
+    }, {
+        "path": "./modules/",
+        "name": "PhpCgi",
+        "bin": "/usr/bin/php-cgi",
+        "files": "./wwww/website/"
+    }, {
+        "path": "./modules/",
+        "name": "HttpSender"
+    }], 
+    "logger": {
+        "path": "./modules/",
+        "name": "MyLogger",
+        "debug": true,
+        "file": "./logs/log.txt"
+    },
+    "network": {
+        "path": "./modules/",
+        "name": "SecureNetwork", 
+        "port": 443, 
+        "ssl-certificate": "/etc/letsencrypt/live/www.example.com/fullchain.pem", 
+        "ssl-certificate-key": "/etc/letsencrypt/live/www.example.com/privkey.pem"
+    }
+}

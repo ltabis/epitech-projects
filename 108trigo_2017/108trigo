@@ -1,0 +1,98 @@
+#!/usr/bin/python3
+from sys import *
+from math import *
+from functions import *
+ 
+def try_nbr(arg):
+	try:
+		float(arg)
+		return True
+	except ValueError:
+		print("Arguments given aren't numbers")
+		exit(84)
+
+def calc_identity_matrix(args):
+	i = 0
+	j = 0
+	len1 = sqrt(len(args))
+	identity = [0] * int(len1)
+
+	for i in range(int(len1)):
+		identity[i] = [0] * int(len1)
+	i = 0
+	while i != int(len1):
+		identity[j][i] = 1
+		i += 1
+		j += 1
+	return identity
+
+
+def check_expression(args):
+	i = 0
+	func = ["EXP", "COS", "SIN", "COSH", "SINH", "ALL"]
+
+	while i < len(func) and args[0] != func[i]:
+		i += 1
+	if (i == len(func)):
+		print("bad expression, please try with 'EXP', 'COS', 'SIN', 'COSH' or 'SINH' or 'ALL'")
+		exit(84)
+	i = 1
+	while i < len(args):
+		try_nbr(args[i])
+		i += 1
+	i = len(args) - 1
+	if i < 1:
+		print("That's not a square matrix, please try again")
+		exit(84)
+	j = 1
+	offset = 1
+	while j < i:
+		offset += 2
+		j += offset
+	if j > i:
+		print("That's not a square matrix, please try again")
+		exit(84)
+
+def main():
+	i = 1
+	args = []
+	identity = []
+	func = ""
+
+	if len(argv) < 2:
+		exit(84)
+	if argv[1] == '-h' and len(argv) == 2:
+		display_usage();
+		exit(0)
+	while i < len(argv):
+		args.append(argv[i])
+		i += 1
+	check_expression(args)
+	func = args[0]
+	del args[0]
+	identity = calc_identity_matrix(args)
+	if func == "EXP":
+		calc_EXP(args, identity, 0)
+	if func == "COS":
+		calc_COS(args, identity, 0)
+	if func == "SIN":
+		calc_SIN(args, identity, 0)
+	if func == "COSH":
+		calc_COSH(args, identity, 0)
+	if func == "SINH":
+		calc_SINH(args, identity, 0)
+	if func == "ALL":
+		calc_ALL(args, identity)
+
+
+def display_usage():
+    print("""USAGE
+	./108trigo fun a0 a1 a2....
+
+DESCRIPTION
+
+	fun  function to be applied, among at least "EXP", "COS", "SIN", "COSH" and "SINH"
+	ai   coeficients of the matrix""");
+
+if __name__ == "__main__":
+	main()

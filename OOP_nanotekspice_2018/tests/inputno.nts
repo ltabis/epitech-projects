@@ -1,0 +1,10 @@
+# test
+# test
+.chipsets:
+input a
+input b
+output c
+
+.links:
+a:1 c:1
+b:1 c:1

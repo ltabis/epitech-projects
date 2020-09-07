@@ -1,0 +1,12 @@
+*.o
+vgcore.*
+*.a
+*.gcno
+*.gcda
+*.so
+cmake-build-debug
+CMakeLists.txt
+*.cabal
+.stack-work
+boot
+*.py

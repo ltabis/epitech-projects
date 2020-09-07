@@ -1,0 +1,7 @@
+.idea
+*.gcno
+*.gcda
+*.o
+*.so
+cmake-build-debug
+CMakeLists.txt

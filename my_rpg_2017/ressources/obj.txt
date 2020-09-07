@@ -1,0 +1,24 @@
+100
+X-663
+ressources/pictures/objects/X-663.png
+2 0 0
+
+101
+X-664
+ressources/pictures/objects/X-664.png
+3 0 0
+
+102
+X-665
+ressources/pictures/objects/X-665.png
+4 0 0
+
+200
+B-22
+ressources/pictures/objects/B-22.png
+0 3 0
+
+201
+B-23
+ressources/pictures/objects/B-23.png
+0 6 0

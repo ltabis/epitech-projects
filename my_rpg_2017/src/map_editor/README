@@ -1,0 +1,39 @@
+Votre tile map doit etre composé de tile de taille 100*100 et la premiere tile doit toujours etre vide (voir exemple une tilemap de 3 sur 3)
+
+Pour faire les maps vous pouvez utiliser ceci : https://www.mapeditor.org/
+
+Je ne sais pas si il existe sous linux mais sous windows ca marche sans soucis.
+
+Comment faire :
+	- nouvelle carte:
+		- taille de la carte comme vous voulez
+		- largeur et hauteur des tiles 100 px
+		- valider
+	- carré en bas à droite:
+		- nouveau tileset
+		- source: votre tilemap
+		- largeur et hauteur des tiles: 100px
+		- valider
+	- revenez sur l'onglet 1 pour faire la map
+	- set les options (une map doit obligatoirement avec des options, mettre tout a 1 au pire)
+		- creer un nouveau calque
+		- calque de tile
+		- les numeros des tiles sur votre tile map corresponde au numero des options. 
+										0 1 2
+										3 4 5
+										6 7 8
+		par exemple avec la tile map d'exemple, je vais mettre de l'herbe (numero 1) sur mon 2 eme calque a chaque endroit sans option.
+		1 correspond a pas d'option
+		2 a un mur et le reste il faut le definir
+	- enregistrer changer l'extension .tmx en .xml
+
+si il y a un soucis verifier le .xml , il doit y avoir 2 grilles de numero sinon je reviens lundis soir / mardi matin ouenvoyez moi un sms
+
+Pour l'editeur, on le lance comme ca, ./editor "nom_du_fichier.xml" "nombre de sprite sur une ligne de la tilemap"
+
+avec les fichiers dans l'exemple  ./editor "test.xml" 3.
+ca affiche sur la sortie standart donc pour rediriger dans un fichier ./editor "" "" >file
+
+./loader "tilemap" "fichier crée"
+
+

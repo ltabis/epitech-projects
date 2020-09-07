@@ -1,0 +1,14 @@
+.idea/
+CMake*
+cmake*
+obj/
+*.out
+*.o
+*~
+*#*#
+*.a
+*.s
+*#*
+my_rpg
+*vgcore*
+*_cpy

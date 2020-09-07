@@ -1,0 +1,165 @@
+#!/usr/bin/python3                                                                                       
+from sys import *
+from math import *
+
+args = []
+PI = 3.141592654
+
+def calc_delta(a, b, c):
+    delta = (b*b) + (-4*a*c)
+    return delta
+
+def calc_one_sol(a, b, argv):
+    sol = (-b)/(2*a)
+    xf = float(argv[2]) + sol * float(argv[5])
+    yf = float(argv[3]) + sol * float(argv[6])
+    zf = float(argv[4]) + sol * float(argv[7])
+    print("({:.3f}, {:.3f}, {:.3f})".format(xf, yf, zf))
+
+def calc_two_sol(a, b, delta, argv):
+    sol = ((-b) + sqrt(delta)) / (2 * a)
+    xf = float(argv[2]) + sol * float(argv[5])
+    yf = float(argv[3]) + sol * float(argv[6])
+    zf = float(argv[4]) + sol * float(argv[7])
+    print("({:.3f}, {:.3f}, {:.3f})".format(xf, yf, zf))
+    sol = ((-b) - sqrt(delta)) / (2 * a)
+    xf = float(argv[2]) + sol * float(argv[5])
+    yf = float(argv[3]) + sol * float(argv[6])
+    zf = float(argv[4]) + sol * float(argv[7])
+    print("({:.3f}, {:.3f}, {:.3f})".format(xf, yf, zf))
+
+def calc_result(a, b, c, delta, argv):
+    if (delta < 0):
+        print("No intersection point.")
+    elif (delta == 0):
+        print("1 intersection point :")
+        calc_one_sol(a, b, argv)
+    elif (delta > 0):
+        print("2 intersection points :")
+        calc_two_sol(a, b, delta, argv)
+
+def do_sphere(args):
+    a = (args[4] * args[4]) + (args[5] * args[5]) + (args[6] * args[6])
+    b = 2 * (args[1] * args[4] + args[2] * args[5] + args[3] * args[6])
+    c = (args[1] * args[1]) + (args[2] * args[2]) + (args[3] * args[3]) - (args[7] * args[7])
+    print("sphere of radius " + str(args[7]))
+    print("straight line going through the ("+str(args[1])+","+str(args[2])+","+str(args[3])+") point and of direction vector ("+str(args[4])+","+str(args[5])+","+str(args[6])+")")
+    if a == 0:
+        print("No intersection point.")
+        exit(0) 
+    delta = (b * b) + ( -4 * a * c)
+    if delta == 0:
+        x = -b / (2 * a)
+        xA = args[1] + args[4] * x
+        yA = args[2] + args[5] * x
+        zA = args[3] + args[6] * x
+        print("1 intersection points :")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xA, yA, zA))
+    elif delta > 0:
+        x1 = (-b + sqrt(delta)) / (2 * a)
+        x2 = (-b - sqrt(delta)) / (2 * a)
+        xA = args[1] + args[4] * x1
+        yA = args[2] + args[5] * x1
+        zA = args[3] + args[6] * x1
+        xB = args[1] + args[4] * x2
+        yB = args[2] + args[5] * x2
+        zB = args[3] + args[6] * x2
+        print("2 intersection points :")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xA, yA, zA))
+        print("({:.3f}, {:.3f}, {:.3f})".format(xB, yB, zB))
+    else:
+        print("No intersection point.")
+
+def do_cylinder(args):
+    a = (args[4] * args[4]) + (args[5] * args[5])
+    b = 2 * (args[1] * args[4] + args[2] * args[5])
+    c = (args[1] * args[1]) + (args[2] * args[2]) - (args[7] * args[7])
+    if a == 0:
+        if b == 0:
+            if c == 0:
+                print("There is an infinite number of intersection points.");
+                exit(0);
+    print("cylinder of radius " + str(args[7]))
+    print("straight line going through the ("+str(args[1])+","+str(args[2])+","+str(args[3])+") point and of direction vector ("+str(args[4])+","+str(args[5])+","+str(args[6])+")")
+    if a == 0:
+        print("No intersection point.")
+        exit(0)
+    delta = (b * b) + ( -4 * a * c)
+    if delta == 0:
+        x = -b / (2 * a)
+        xA = args[1] + args[4] * x
+        yA = args[2] + args[5] * x
+        zA = args[3] + args[6] * x
+        print("1 intersection points :")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xA, yA, zA))
+    elif delta > 0:
+        x1 = (-b + sqrt(delta)) / (2 * a)
+        x2 = (-b - sqrt(delta)) / (2 * a)
+        xA = args[1] + args[4] * x1
+        yA = args[2] + args[5] * x1
+        zA = args[3] + args[6] * x1
+        xB = args[1] + args[4] * x2
+        yB = args[2] + args[5] * x2
+        zB = args[3] + args[6] * x2
+        print("2 intersection points :")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xA, yA, zA))
+        print("({:.3f}, {:.3f}, {:.3f})".format(xB, yB, zB))
+    else:
+        print("No intersection point.")
+    
+     
+def do_cone(args):
+    angle = int(argv[8])                                                                                
+    while angle >= 360:                                                                                 
+        angle = angle - 360                                                                             
+    print("cone of degree angle {}".format(angle))                                                      
+    print("straight line going through the ({},{},{}) point and of direction vector ({},{},{})".format(argv[2], argv[3], argv[4], argv[5], argv[6], argv[7]))
+    if angle > 90:                                                                                      
+        angle = angle - ((angle - 90) * 2)                                                              
+    elif angle < -90:                                                                                   
+        angle = angle + ((-angle - 90) * 2)                                                             
+    angle = (PI / 2) - (angle * PI / 180)                                                               
+    a = float(argv[5]) * float(argv[5]) + float(argv[6]) * float(argv[6]) - (float(argv[7]) * float(argv[7])) / (tan(angle) * tan(angle))
+    b = 2 * (float(argv[2]) * float(argv[5])) + 2 * (float(argv[3]) * float(argv[6])) - 2 * ((float(argv[4]) * float(argv[7]))) / (tan(angle) * tan(angle))
+    c = float(argv[2]) * float(argv[2]) + float(argv[3]) * float(argv[3]) - (float(argv[4]) * float(argv[4])) / (tan(angle) * tan(angle))
+    if a == 0:
+        if b == 0:
+            if c == 0:
+                print("There is an infinite number of intersection points.")
+                exit(0)
+    delta = calc_delta(a, b, c)
+    calc_result(a, b, c, delta, argv)
+
+def try_nbr(arg):
+    try:
+        float(arg)
+        return True
+    except ValueError:
+        exit(84)
+
+def main():
+    i = 1
+    arg = 0
+    args = []
+
+    if len(argv) != 9:
+        exit(84)
+    while i < 9:
+        try_nbr(argv[i])
+        arg = int(argv[i])
+        args.append(arg);
+        i += 1;
+    if args[0] < 1 or args[0] > 3:
+        exit(84)
+    return(args)
+
+def choose_function(args):
+    if args[0] == 1:
+        do_sphere(args)
+    elif args[0] == 2:
+        do_cylinder(args)
+    elif args[0] == 3:
+        do_cone(args)
+
+args = main()
+choose_function(args)

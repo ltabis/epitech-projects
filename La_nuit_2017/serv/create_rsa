@@ -1,0 +1,14 @@
+#!/bin/sh
+
+name=$1
+cur=$(pwd)
+cd ~/.ssh/
+ssh-keygen -b 4096 -t rsa
+cd $cur
+
+cp ~/.ssh/Nuit_de_Linfo.pub ./Nuit_de_Linfo_$name.pub
+git pull
+git add ./Nuit_de_Linfo_$name.pub
+git commit -m "Ajout de la cle rsa $name"
+git push
+rm -f Nuit_de_Linfo_$name.pub

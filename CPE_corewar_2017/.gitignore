@@ -1,0 +1,10 @@
+*.txt
+cmake*
+.idea
+corewar
+*.py
+*.s
+*.cor
+*.cor2
+asm/asm
+asm2

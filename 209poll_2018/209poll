@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+
+from parser import *
+from calc import *
+
+def main():
+    args = parsing()
+    calc(args)
+
+if __name__ == "__main__":
+    main()

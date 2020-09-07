@@ -1,0 +1,61 @@
+body {
+    background-image: url("https://i.gifer.com/3ZuB.gif");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+ul.Navigation {
+    position: sticky;
+    top: 0px;
+    font-size: large;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li.Navigation a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ li.Navigation:last-child {
+     border-right: none;
+ }
+
+li.Navigation a:hover:not(.active) {
+    background-color: dodgerblue;
+}
+
+.Title {
+    position: relative;
+    top: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+li.Navigation {
+    display: inline;
+    border-right: 1px solid black;
+    float: left;
+}
+
+h1[type=title] {
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    color: floralwhite;
+    position: relative;
+    top: 10px;
+    left: 0;
+}

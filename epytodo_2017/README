@@ -1,0 +1,16 @@
+
+./run pour lancer
+
+attention ! si on essai de se loger et que le login n'éxiste pas, onne peux plus se loger.
+si ça arrive, relancer le programme
+
+register pour créer un compte, ensuite login avec le pseudo et mdp.
+le log est affiché, on peut se delog avec le bouton signout et aller au profil avec my profile.
+
+Ici, les informations de l'utilisateur sont affichées.
+
+En appuyant sur task, on peut voir le nombre de tasks à son actif et les différentes tasks.
+
+on peu les supprimer, et voirs leurs caractéridstiques, mais pas les modifier.
+
+On peut en créer de nouvelles avec les différents input en bas des tasks

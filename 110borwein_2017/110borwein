@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+from sys import *
+from math import *
+from calcul import *
+
+def try_nbr(nbr):
+	try:
+		int(nbr)
+		return True
+	except ValueError:
+		print("Argument given isn't a number")
+		exit(84)
+
+def main():
+
+	i = 1
+	j = 0
+	vol = []
+	ph = []
+
+	if len(argv) != 2:
+		exit(84)
+	if argv[1] == '-h':
+		display_usage();
+		exit(0)
+	try_nbr(argv[1])
+	if int(argv[1]) < 0:
+		exit(84)
+	calcul_rectangles(int(argv[1]))
+	calcul_trapezoïds(int(argv[1]))
+	calcul_simpson(int(argv[1]))
+
+def display_usage():
+    print("""USAGE
+	./110borwein n
+DESCRIPTION
+	n	constant defining the integral to be computed""");
+
+if __name__ == "__main__":
+	main()

@@ -1,0 +1,56 @@
+
+input[type=text], select {
+    position: relative;
+    left: 1680px;
+    width: 10%;
+    clear: both;
+    padding: 20px 20px;
+    margin: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    position: relative;
+    left: 1689px;
+    width: 10%;
+    background-color: #00FF7F;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+p[type="sign"] {
+    color: whitesmoke;
+}
+
+h3 {
+    position: relative;
+    top: 300px;
+    left: 1500px;
+
+}
+
+h4.Usr {
+    position: absolute;
+    top: 190px;
+    left: 1590px;
+    color: whitesmoke;
+}
+
+h4.Pass {
+    position: absolute;
+    top: 280px;
+    left: 1590px;
+    color: whitesmoke;
+}
+
+address {
+    color: whitesmoke;
+    position: relative;
+    top: 80px;
+}

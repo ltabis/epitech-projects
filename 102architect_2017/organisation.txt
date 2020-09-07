@@ -1,0 +1,10 @@
+102architect organisation
+
+Matteo :
+- translation
+- zoom
+- fonction création de matrice
+Lucas
+- main
+- rotation
+- symétrie

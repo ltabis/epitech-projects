@@ -1,0 +1,8 @@
+#!/usr/bin/python3
+
+from parser import *
+
+def main():
+    parsing()
+if __name__ == "__main__":
+    main()

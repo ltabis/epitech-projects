@@ -1,0 +1,2 @@
+#!/bin/sh
+ssh -i ~/.ssh/Nuit_de_Linfo debian@217.182.95.3

@@ -1,0 +1,49 @@
+To include a monster to the game :
+
+Monster_name {
+	[[stat] [value]]
+	stats ...
+} texture
+
+if there is a missing stat, it will be set on 1 by default.
+if a stat isn't know, it will be passed.
+
+the monster file must be a .mstr file.
+monster files must be in the "monster" folder.
+
+the texture file must be a .png file and muste be 100*100.
+
+here are all the stats :
+
+[
+	current_hp		// current life points
+	current_sp		// current shield points
+	current_st		// current stamina
+	max_hp			// maximum life points
+	max_sp			// maximum shiled points
+	max_st			// maximum stamina
+	att			// attack points
+	def			// defense points
+	spd			// speed
+]
+
+all the stats are needed ! (order doesn't matter)
+
+## EXEMPLE ##
+
+my_monster {
+	current_hp 50
+	max_st 0
+	current_sp 5
+	max_hp 3		// ERROR
+	max_sp ezr		// ERROR
+	att 3
+	def			// ERROR
+} sprites/monster.png
+
+############
+
+if there are errors, the monster file whill not be taken into account by the game.
+You can put multiple monsters into one file.
+if your monster is successfully loaded, it will be randomly choosen between all the monsters
+available.

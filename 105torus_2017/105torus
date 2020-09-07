@@ -1,0 +1,95 @@
+#!/usr/bin/python3
+from sys import *
+from torus_newton import *
+from torus_secant import *
+
+list1 = []; # LISTE QUI CONTIENT LES ARGUMENTS SANS LE BINAIRE
+
+def methode_bissection(arg): # CALCULS OPTION 1
+    n = (10**(int(arg[6])*-1))
+    x1 = 0
+    x2 = 1
+    stop = 0
+    i = 0
+    disp_zero = 0
+
+    while 1:
+        xm = (x1 + x2) / 2
+        test = str(xm)
+        i = test[::-1].find('.')
+        if i == int(arg[6]):
+            disp_zero = 1
+        j = 0
+        i = 0
+        if stop == xm:
+            exit(0)
+        stop = xm
+        if calc_formula(xm, arg) * calc_formula(x2, arg) < 0:
+            x1 = xm
+        elif calc_formula(xm, arg) * calc_formula(x1, arg) < 0:
+            x2 = xm
+        X1n = x1 - x2
+        if X1n < 0:
+            X1n = X1n * -1
+        if xm < 0:
+            xm = xm * -1
+        if xm == 0:
+            if disp_zero == 1:
+                print('x = {0:.{1}f}'.format(xm, arg[6]))
+                exit(0);
+            else:
+                print('x = {0:.{1}f}'.format(xm, arg[6]))
+                exit(0);
+        res = X1n / (2 * xm)
+        if res < n:
+            if disp_zero == 1:
+                print('x = {0:.{1}f}'.format(xm, arg[6]))
+                exit(0);
+            else:
+                print('x = {0:.{1}g}'.format(xm, arg[6]))
+                exit(0);
+        if disp_zero == 1:
+            print('x = {0:.{1}f}'.format(xm, arg[6]))
+        else:
+            print('x = {0:.{1}g}'.format(xm, arg[6]))
+
+def calc_formula(x, arg): # CALCULE DE L'EQUATION DE DEGREE 4 POUR L'OPTION 1
+    res = float(arg[5])*(x**4) + float(arg[4])*(x**3) + float(arg[3])*(x**2) + float(arg[2])*x + float(arg[1])
+    return (res)
+            
+def try_nbr(arg): # GESTION D'ERREUR, PAS BESOIN DE TOUCHER
+    try:
+        float(arg)
+        return True
+    except ValueError:
+        exit(84)
+
+def choose_methode(list1): # CHOISIR LA METHODE ICI
+    if list1[0] == 1:
+        methode_bissection(list1);
+    elif list1[0] == 2:
+        do_newton(list1, int(list1[6]));
+    elif list1[0] == 3:
+        do_secant(list1, int(list1[6]));
+    else:
+        exit(0)
+
+def main():
+    i = 1
+    args = []
+
+    if len(argv) != 8:
+        exit(84)
+    while i < 8:
+        try_nbr(argv[i])
+        arg = int(argv[i])
+        args.append(arg);
+        i += 1;
+    if args[0] < 1 or args[0] > 3:
+        exit(84)
+    return(args)
+
+        
+list1 = main();
+choose_methode(list1);
+
